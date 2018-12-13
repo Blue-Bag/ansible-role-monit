@@ -10,10 +10,8 @@
 
 - name: MONIT | Installing dependencies
   apt:
-    pkg: "{{ item }}"
+    pkg: "{{ required_libs }}"
     state: present
-  with_items: "{{ required_libs }}"
-
 
 - name: MONIT | Check monit version
   command: monit --version
