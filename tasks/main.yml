@@ -2,13 +2,21 @@
 
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
-  tags: monit_pkg
+  tags: always
 
-- include: config.yml
+- import_tasks: install.yml
+  tags: monit_install
+
+- import_tasks: config.yml
   tags: monit_config
 
-- include: monitors.yml
+- import_tasks: monitors.yml
   tags: monit_monitors
 
-- name: ensure monit starts on a fresh reboot
-  service: name=monit state=started enabled=yes
+- import_tasks: service.yml
+  tags: monit_service
+
+
+# - name: ensure monit starts on a fresh reboot
+#   service: name=monit state=started enabled=yes
+
