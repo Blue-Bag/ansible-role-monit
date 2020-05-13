@@ -11,7 +11,7 @@
         pkg: apache2
         update_cache: yes
         cache_valid_time: 3600
-        state: installed
+        state: present
 
   roles:
     - .
@@ -66,4 +66,3 @@
         - localhost
         - google
         - timezone_config
-
