@@ -3,7 +3,7 @@
 - name: Check package not already installed
   apt:
     name: monit
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 3600
     state: absent
 
@@ -23,24 +23,24 @@
   get_url:
     url: "{{ monit_url }}"
     dest: /tmp
-  when: 'monit_check|failed or "{{ monit_version }}" not in monit_check.stdout'
+  when: monit_check|failed or monit_version not in monit_check.stdout
 
 - name: MONIT | Untar monit
   unarchive:
-    copy: no
+    copy: false
     src: /tmp/monit-{{ monit_version }}.tar.gz
     dest: /tmp
-  when: 'monit_check|failed or "{{ monit_version }}" not in monit_check.stdout'
+  when: monit_check|failed or monit_version not in monit_check.stdout
 
 - name: MONIT | Install monit
-  command: "chdir=/tmp/monit-{{ monit_version }} {{item}}"
+  command: "chdir=/tmp/monit-{{ monit_version }} {{ item }}"
   with_items:
     - ./configure
         --without-ssl
         --without-pam
     - make
     - make install
-  when: 'monit_check|failed or "{{ monit_version }}" not in monit_check.stdout'
+  when: monit_check|failed or monit_version not in monit_check.stdout'
   notify: restart monit
 
 - name: MONIT | Remove old upstart daemon script
