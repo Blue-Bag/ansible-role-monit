@@ -40,7 +40,7 @@
     - name: config - Setup monitrc
       template:
         src: monitrc.j2
-        dest:  "{{monitrc_conf}}"
+        dest:  "{{ monitrc_conf }}"
         owner: root
         group: root
         mode: 0700

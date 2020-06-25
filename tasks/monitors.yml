@@ -15,7 +15,7 @@
     mode: 0755
     owner: root
     group: root
-  with_items: "{{monit_custom_checks}}"
+  with_items: "{{ monit_custom_checks }}"
 
 - name: monitors - Write monitors
   template:
@@ -23,7 +23,7 @@
     dest: "{{ monit_includes }}/{{ item.name | replace (' ', '_') }}"
     owner: root
     group: root
-  with_items: "{{monit_services}}"
+  with_items: "{{ monit_services }}"
   notify: reload monit
 
 - name: monitors - Create facts directory
@@ -53,7 +53,7 @@
   file:
     path: "{{ monit_includes }}/{{ item }}"
     state: absent
-  with_items: "{{monit_services_present.stdout_lines | default([])}}"
+  with_items: "{{ monit_services_present.stdout_lines | default([]) }}"
   when: monit_service_delete_unlisted and item|basename not in ansible_local.monit.monit_configured_services
   notify: reload monit
 
@@ -61,6 +61,6 @@
 
 - name: monitors - Start configured monitors
   command: monit start {{ item }}
-  with_items: "{{ansible_local.monit.monit_configured_services}}"
+  with_items: "{{ ansible_local.monit.monit_configured_services }}"
   when: monit_start_monitors and ansible_local.monit.monit_configured_services is defined and item not in monit_unstartable_monitors
-  ignore_errors: yes
+  ignore_errors: true
