@@ -1,9 +1,10 @@
+---
 - hosts: host1
   become: true
   roles:
-    - { role: monit, monit_services: [ unbound ], monit_webinterface_enabled: false }
+    - {role: monit, monit_services: [unbound], monit_webinterface_enabled: false}
 
 - hosts: host2
   become: true
   roles:
-    - { role: monit, monit_services: [ sshd ], monit_webinterface_port: 8080 }
+    - {role: monit, monit_services: [sshd], monit_webinterface_port: 8080}

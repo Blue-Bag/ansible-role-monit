@@ -3,7 +3,7 @@
 - name: Check package not already installed
   apt:
     name: monit
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 3600
     state: absent
 
@@ -27,7 +27,7 @@
 
 - name: MONIT | Untar monit
   unarchive:
-    copy: no
+    copy: false
     src: /tmp/monit-{{ monit_version }}.tar.gz
     dest: /tmp
   when: monit_check|failed or monit_version not in monit_check.stdout

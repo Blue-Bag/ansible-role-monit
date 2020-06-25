@@ -125,4 +125,3 @@ monit_alert_mail_message: |+
              Description: $DESCRIPTION
         Your faithful employee,
         Monit
-

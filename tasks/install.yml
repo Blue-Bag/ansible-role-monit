@@ -9,7 +9,7 @@
     name: "{{ monit_user }}"
     group: "{{ monit_group }}"
     home: /bin/false
-    createhome: yes
+    createhome: true
 
 - name: Include OS-specific tasks | Debian.
   import_tasks: Debian/pkg.yml
