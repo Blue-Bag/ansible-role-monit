@@ -1,5 +1,6 @@
 ---
 monit_cycle: 120
+monit_start_delay: 300
 
 
 # Files & Paths
@@ -8,8 +9,8 @@ monit_conf_dir: /etc/monit
 monit_lib_dir: /var/lib/monit
 
 
-monit_state_file: "{{ monit_log_dir }}/state"
-monit_id_file: "{{ monit_log_dir }}/id"
+monit_state_file: "{{ monit_lib_dir }}/state"
+monit_id_file: "{{ monit_lib_dir }}/id"
 monit_log_destination: "{{ monit_log_dir }}/monit.log"
 
 monit_custom_checks: []
