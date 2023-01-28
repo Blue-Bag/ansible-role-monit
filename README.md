@@ -26,7 +26,9 @@ Role Variables
   * `type`: Type of monitorization, "process", "host" and "system" are supported.
   * `target`: Target of monitorization. Should be a pidfile, an address or undefined, depending on the `type` of service.
   * `start`: Command that starts the service. Optional.
+  * `start_timeout` : seconds to wait for restart. Optional
   * `stop`: Command that stop the service. Optional.
+
   * `rules`: List of rules to be included in this service. Optional.
 * `monit_service_detele_unlisted`: Remove existing service monitorization configurations not declared in the `services`. Defaults to `true`.
 * `monit_start_monitors`: Start configured `services`. Defaults to `true`.
