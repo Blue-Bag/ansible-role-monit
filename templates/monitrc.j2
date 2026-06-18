@@ -1,6 +1,10 @@
 # Managed by Ansible, do not edit manually!
 
-set daemon {{ monit_cycle }} with start delay {{ monit_start_delay }}
+{% if monit_start_delay is defined %} 
+set daemon {{ monit_cycle }}with start delay {{ monit_start_delay }}
+{% else %}
+set daemon {{ monit_cycle }}
+{% endif %}
 set logfile {{ monit_log_destination }}
 set statefile {{ monit_state_file }}
 set idfile {{ monit_id_file }}

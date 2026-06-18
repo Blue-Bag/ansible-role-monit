@@ -1,10 +1,13 @@
 ---
 - name: Enable Backports repository (Debian).
-  apt_repository:
-    repo: 'deb http://ftp.debian.org/debian {{ ansible_distribution_release }}-backports main'
+  ansible.builtin.deb822_repository:
+    name: "{{ ansible_facts['distribution_release'] }}-backports"
+    types: deb
+    uris: "http://ftp.debian.org/debian"
+    suites: "{{ ansible_facts['distribution_release'] }}-backports"
+    components: main
     state: present
-    filename: "{{ ansible_distribution_release }}_backports"
-  when: ansible_distribution == "Debian" and  ansible_distribution_major_version == '10'
+  when: ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version'] == '10'
 
 - name: pkg - Install package
   apt:

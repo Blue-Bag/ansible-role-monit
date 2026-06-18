@@ -1,6 +1,7 @@
 ---
 monit_cycle: 120
-monit_start_delay: 300
+# set start delay if you want monitor to wait for other processes
+#monit_start_delay: 300
 
 
 # Files & Paths
