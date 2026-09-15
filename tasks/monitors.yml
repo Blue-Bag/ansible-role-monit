@@ -3,8 +3,8 @@
 - name: monitors - custom checks directory
   file:
     path: "{{ monit_custom_checks_directory }}"
-    owner: root
-    group: root
+    owner: "{{ monit_user }}"
+    group: "{{ monit_user }}"
     state: directory
   when: monit_custom_checks is defined and monit_custom_checks | length > 0
 
@@ -13,18 +13,30 @@
     dest: "{{ monit_custom_checks_directory }}/{{ item }}"
     src: "files/{{ item }}"
     mode: 0755
-    owner: root
-    group: root
+    owner: "{{ monit_user }}"
+    group: "{{ monit_user }}"
   with_items: "{{ monit_custom_checks }}"
 
 - name: monitors - Write monitors
   template:
     src: monitor.j2
-    dest: "{{ monit_includes }}/{{ item.name | replace (' ', '_') }}"
-    owner: root
-    group: root
+    dest: "{{ monit_services_dir }}/{{ item.name | replace (' ', '_') }}"
+    owner: "{{ monit_user }}"
+    group: "{{ monit_user }}"
   with_items: "{{ monit_services }}"
   notify: reload monit
+
+- name: monitors - enable monitors
+  file:
+    src: "{{ monit_services_dir }}/{{ item.name | replace (' ', '_') }}"
+    dest: "{{ monit_includes }}/{{ item.name | replace (' ', '_') }}"
+    state: link
+    owner: "{{ monit_user }}"
+    group: "{{ monit_user }}"
+  with_items: "{{ monit_services }}"
+  when: item.enabled is not defined or (item.enabled is defined and item.enabled | bool)
+  notify: reload monit
+
 
 - name: monitors - Create facts directory
   file:

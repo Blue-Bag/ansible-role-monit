@@ -1,6 +1,7 @@
 ---
 
 monitrc_conf: /etc/monit.conf
-monit_includes: /etc/monit.d
+monit_services_dir: "/etc/monit.d"
+monit_includes: "/etc/monit.d"
 
 monit_bin: '/usr/bin'
