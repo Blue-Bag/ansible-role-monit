@@ -91,7 +91,7 @@
     group: root
     mode: 0644
   become: true
-  when: ansible_os_family == "Debian"
+  when: ansible_facts['os_family'] == "Debian"
 
 - name: Put up Slack integration file if required
   template:
