@@ -10,7 +10,7 @@ set mailserver {{ monit_mailserver_host }} port {{ monit_mailserver_port }}
   with timeout {{ monit_mailserver_timeout | default(5) }} seconds
 
 {% for mail_address in monit_alert_addresses %}
-set alert {{ mail_address }}
+set alert {{ mail_address }}{% if monit_alert_not_on %} not on { {{ monit_alert_not_on | join(', ') }} }{% endif %}
 {% endfor %}
 
 {% if monit_alert_mail_format is defined -%}

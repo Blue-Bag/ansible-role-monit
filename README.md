@@ -39,7 +39,8 @@ Role Variables
 * `monit_mailserver_password`: Password for authentication on mailserver.
 * `monit_mailserver_timeout`: Timeout for mailserver connection. Defaults to `5`.
 * `monit_mailserver_ssl_version`: If defined, monit will use this algorithm for SSL connection to the mail server. Possible values are `SSLAUTO`, `SSLV2`, `SSLV3`, `TLSV1`, `TLSV11`, `TLSV12`.
-* `monit_alert_address`: Mail address where the alerts will be sent to.
+* `monit_alert_addresses`: List of mail addresses the alerts are sent to. Defaults to `support@example.com`; set your own.
+* `monit_alert_not_on`: List of event types not to email about, e.g. `[action]` to skip mails for manual monitor/unmonitor.
 * `monit_alert_mail_from`: Sender mail address.
 * `monit_alert_mail_subject`: Mail subject.
 * `monit_alert_mail_message`: Mail message body.
