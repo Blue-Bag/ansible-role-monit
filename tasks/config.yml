@@ -97,7 +97,7 @@
   template:
     src: slack.rb.j2
     dest: "/etc/monit/slack.rb"
-    owner: "{{ monit_user }}"
+    owner: root
     group: "{{ monit_user }}"
-    mode: 0744
+    mode: 0750
   become: true
