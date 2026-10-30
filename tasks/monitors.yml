@@ -31,6 +31,7 @@
     src: "{{ monit_services_dir }}/{{ item.name | replace (' ', '_') }}"
     dest: "{{ monit_includes }}/{{ item.name | replace (' ', '_') }}"
     state: link
+    force: "{{ ansible_check_mode }}"
     owner: "{{ monit_user }}"
     group: "{{ monit_user }}"
   with_items: "{{ monit_services }}"
