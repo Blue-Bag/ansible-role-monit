@@ -1,7 +1,9 @@
 ---
 monit_cycle: 120
-# set start delay if you want monitor to wait for other processes
-#monit_start_delay: 300
+# Seconds monit waits after boot before its first check. Without it monit can
+# see services that are still starting as down and "restart" them, which on
+# Debian 13 killed fail2ban at boot.
+monit_start_delay: 30
 
 
 # Files & Paths
