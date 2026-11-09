@@ -72,6 +72,15 @@
 
 - meta: flush_handlers
 
+# After a restart that monit treats as the first start since boot, its HTTP
+# interface stays down for monit_start_delay seconds, and `monit start` fails.
+- name: monitors - Wait for the monit HTTP interface
+  wait_for:
+    host: "{{ '127.0.0.1' if monit_webinterface_bind in ['0.0.0.0', 'localhost'] else monit_webinterface_bind }}"
+    port: "{{ monit_webinterface_port }}"
+    timeout: "{{ (monit_start_delay | default(0) | int) + 30 }}"
+  when: monit_start_monitors and monit_webinterface_enabled
+
 - name: monitors - Start configured monitors
   command: monit start {{ item }}
   with_items: "{{ ansible_local.monit.monit_configured_services }}"
